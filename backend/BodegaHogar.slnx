@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BodegaHogar.API/BodegaHogar.API.csproj" />
+  <Project Path="BodegaHogar.Application/BodegaHogar.Application.csproj" />
+  <Project Path="BodegaHogar.Domain/BodegaHogar.Domain.csproj" />
+  <Project Path="BodegaHogar.Infrastructure/BodegaHogar.Infrastructure.csproj" />
+</Solution>
