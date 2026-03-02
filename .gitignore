@@ -1,9 +1,10 @@
 # .NET Core
-backend/**/bin/
-backend/**/obj/
-backend/**/*.user
-backend/**/*.suo
-backend/.vs/
+**/bin/
+**/obj/
+**/*.user
+**/*.suo
+.vs/
+**/.vs/
 
 # Node.js / Next.js
 frontend/node_modules/
