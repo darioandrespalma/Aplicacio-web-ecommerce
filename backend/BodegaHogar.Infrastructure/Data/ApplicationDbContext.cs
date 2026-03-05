@@ -9,14 +9,16 @@ namespace BodegaHogar.Infrastructure.Data
         {
         }
 
-        // Representa la tabla 'products' en Supabase
+        // Representan las tablas en Supabase
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Mapeo explícito usando Fluent API para que coincida con tu script SQL en minúsculas (PostgreSQL convención)
+            // 1. Mapeo de Productos
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("products", "public"); // public schema
@@ -32,6 +34,33 @@ namespace BodegaHogar.Infrastructure.Data
                 entity.Property(e => e.WeightKg).HasColumnName("weight_kg").HasColumnType("decimal(8,2)");
                 entity.Property(e => e.VolumeM3).HasColumnName("volume_m3").HasColumnType("decimal(8,2)");
                 entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+
+                entity.Property(e => e.CategoryId).HasColumnName("category_id");
+            });
+
+            // 2. Mapeo de Categorías (ESTE ES EL QUE FALTA)
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.ToTable("categories", "public");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Name).HasColumnName("name").IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Slug).HasColumnName("slug").IsRequired().HasMaxLength(100);
+                entity.Property(e => e.ParentCategoryId).HasColumnName("parent_category_id");
+            });
+
+            // 3. Mapeo de Imágenes de Productos
+            modelBuilder.Entity<ProductImage>(entity =>
+            {
+                entity.ToTable("product_images", "public");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
+                entity.Property(e => e.ImageUrl).HasColumnName("image_url").IsRequired().HasMaxLength(500);
+                entity.Property(e => e.IsPrimary).HasColumnName("is_primary");
+                entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
             });
         }
     }

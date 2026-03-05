@@ -17,5 +17,9 @@ namespace BodegaHogar.Domain.Entities
 
         // Propiedad calculada: Precio con IVA si aplica (regla de negocio de Ecuador)
         public decimal PriceWithTax => HasIva ? BasePrice * 1.12m : BasePrice;
+
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; } // Propiedad de navegación a la Categoría
+        public ICollection<ProductImage> Images { get; set; } = new List<ProductImage>(); // Lista de fotos
     }
 }

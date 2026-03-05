@@ -16,8 +16,11 @@ namespace BodegaHogar.Infrastructure.Repositories
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            // Retorna todos los productos de Supabase
-            return await _context.Products.ToListAsync();
+            // El .Include() hace el JOIN automáticamente con Categorías y Fotos
+            return await _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .ToListAsync();
         }
 
         public async Task<Product> AddAsync(Product product)

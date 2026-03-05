@@ -17,6 +17,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<BodegaHogar.Application.Interfaces.IProductRepository, BodegaHogar.Infrastructure.Repositories.ProductRepository>();
 // --------------------------------
 
+builder.Services.AddScoped<BodegaHogar.Application.Interfaces.ICategoryRepository, BodegaHogar.Infrastructure.Repositories.CategoryRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
