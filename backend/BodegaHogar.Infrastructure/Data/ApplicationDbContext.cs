@@ -62,6 +62,19 @@ namespace BodegaHogar.Infrastructure.Data
                 entity.Property(e => e.IsPrimary).HasColumnName("is_primary");
                 entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
             });
+
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.ToTable("customers", "public");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.FirstName).HasColumnName("first_name");
+                entity.Property(e => e.LastName).HasColumnName("last_name");
+                entity.Property(e => e.Email).HasColumnName("email").IsRequired(); // Asegúrate de tener esta columna en SQL o añádela
+                entity.Property(e => e.PasswordHash).HasColumnName("password_hash");
+                entity.Property(e => e.IdentificationNumber).HasColumnName("identification_number");
+                entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+            });
         }
     }
 }
